@@ -1,6 +1,21 @@
 headline,industry,date
-Chip sales decline,Semiconductors,2026-11-19
-New processor announced,Semiconductors,2026-11-19
-Oil company reports strong earnings,Energy,2026-11-19
-Energy firm announces layoffs,Energy,2026-11-19
-New solar project launched,Energy,2026-11-19
+Chip sales go up,Semiconductors,2026-11-17
+Chip sales go down,Semiconductors,2026-11-17
+Company releases a new chip,Semiconductors,2026-11-18
+Chip company loses money,Semiconductors,2026-11-18
+More people are buying chips,Semiconductors,2026-11-19
+Chip company cuts jobs,Semiconductors,2026-11-19
+Chip company makes more money,Semiconductors,2026-11-20
+Chip company opens a new factory,Semiconductors,2026-11-20
+Chip company shares its yearly report,Semiconductors,2026-11-20
+Chip prices stay the same,Semiconductors,2026-11-20
+Oil company makes more money,Energy,2026-11-17
+Oil company loses money,Energy,2026-11-17
+Gas prices go up,Energy,2026-11-18
+Gas prices go down,Energy,2026-11-18
+Solar company opens a new project,Energy,2026-11-19
+Energy company cuts jobs,Energy,2026-11-19
+Energy company makes record profits,Energy,2026-11-20
+Energy company reports lower sales,Energy,2026-11-20
+New wind farm opens,Energy,2026-11-20
+Energy company shares its yearly report,Energy,2026-11-20
