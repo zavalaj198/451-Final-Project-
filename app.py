@@ -1,13 +1,14 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import requests
+from datetime import datetime, timedelta
 from sentiment import analyze_sentiment
 
 st.set_page_config(
     page_title="MarketMood AI",
     layout="wide"
 )
-
 
 st.markdown("""
 <style>
@@ -51,6 +52,42 @@ div.stButton > button {
 """, unsafe_allow_html=True)
 
 
+def search_news(industry):
+    api_key = st.secrets["NEWS_API_KEY"]
+
+    if industry == "Energy":
+        keyword = "oil OR solar OR energy"
+    else:
+        keyword = "semiconductor OR chip"
+
+    url = "https://newsapi.org/v2/everything"
+
+    params = {
+        "q": keyword,
+        "apiKey": api_key,
+        "language": "en",
+        "sortBy": "publishedAt",
+        "pageSize": 20,
+        "from": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
+    }
+
+    response = requests.get(url, params=params, timeout=15)
+    response.raise_for_status()
+
+    articles = response.json()["articles"]
+
+    return pd.DataFrame([
+        {
+            "headline": article["title"],
+            "industry": industry,
+            "date": article["publishedAt"][:10],
+            "source": article["source"]["name"],
+            "url": article["url"]
+        }
+        for article in articles
+        if article.get("title")
+    ])
+
 
 st.title("MarketMood AI")
 st.write("Financial News Sentiment & Market Mood Dashboard")
@@ -63,15 +100,42 @@ industry = st.selectbox(
     sorted(data["industry"].dropna().unique())
 )
 
+source = st.radio(
+    "Choose News Source",
+    ["Sample Headlines", "Live News"]
+)
+
+if source == "Live News":
+    if st.button("Search News"):
+        try:
+            with st.spinner("Searching for news..."):
+                st.session_state["news_data"] = search_news(industry)
+                st.session_state["news_industry"] = industry
+        except Exception as e:
+            st.error(f"Could not load news: {e}")
+
+    if (
+        "news_data" not in st.session_state
+        or st.session_state.get("news_industry") != industry
+    ):
+        st.info("Click Search News to find articles.")
+        st.stop()
+
+    data = st.session_state["news_data"]
+
 date = st.selectbox(
     "Select Date",
-    sorted(data["date"].unique())
+    sorted(data["date"].dropna().unique(), reverse=True)
 )
 
 filtered = data[
     (data["industry"] == industry) &
     (data["date"] == date)
 ]
+
+if filtered.empty:
+    st.warning("No headlines found.")
+    st.stop()
 
 with st.spinner("Analyzing headlines..."):
     results = [
@@ -141,7 +205,7 @@ fig = px.bar(
 )
 
 fig.update_layout(
-    template="plotly_dark",
+    template="plotly_white",
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
     showlegend=False
@@ -153,8 +217,22 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.subheader("Headline Analysis")
 
-st.dataframe(
-    df[["headline", "sentiment"]],
-    use_container_width=True,
-    hide_index=True
-)
+if source == "Live News":
+    df["date"] = filtered["date"].values
+    df["source"] = filtered["source"].values
+    df["url"] = filtered["url"].values
+
+    st.dataframe(
+        df[["headline", "sentiment", "date", "source", "url"]],
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "url": st.column_config.LinkColumn("Article Link")
+        }
+    )
+else:
+    st.dataframe(
+        df[["headline", "sentiment"]],
+        use_container_width=True,
+        hide_index=True
+    )
