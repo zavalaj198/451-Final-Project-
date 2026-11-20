@@ -8,11 +8,16 @@ st.set_page_config(
     layout="wide"
 )
 
+
 st.markdown("""
 <style>
 .stApp {
     background-color: #0B1220;
-    color: white;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stHeader"] {
+    background-color: #0B1220;
 }
 
 [data-testid="stMetric"] {
@@ -21,11 +26,29 @@ st.markdown("""
     border-radius: 10px;
 }
 
-h1, h2, h3 {
-    color: white !important;
+[data-testid="stMetricLabel"],
+[data-testid="stMetricValue"] {
+    color: #FFFFFF !important;
+}
+
+[data-testid="stWidgetLabel"] {
+    color: #FFFFFF !important;
+}
+
+h1, h2, h3, p, label {
+    color: #FFFFFF !important;
+}
+
+[data-testid="stAppViewContainer"] {
+    background-color: #0B1220;
+}
+
+[data-testid="stSelectbox"] label {
+    color: #FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 st.title("MarketMood AI")
 st.write("Financial News Sentiment & Market Mood Dashboard")
