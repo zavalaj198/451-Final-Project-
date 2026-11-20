@@ -1,0 +1,22 @@
+flowchart TB
+    USER["User selects industry, news source, and date in Streamlit"]
+    CSV["Sample Headlines: data/headlines.csv<br/>20 illustrative headlines"]
+    API["Optional Live News: NewsAPI<br/>experimental, requires API key"]
+    DATA["app.py loads headline data into Pandas"]
+    FILTER["Filter headlines by selected industry and date"]
+    MODEL["sentiment.py: FinBERT<br/>ProsusAI/finbert"]
+    CLASS["For each headline: positive, neutral, negative<br/>probabilities and predicted label"]
+    AGG["Aggregate results<br/>Mean of P(positive) - P(negative)<br/>Count headlines by predicted label"]
+    UI["Streamlit dashboard<br/>Mood score • article count • Plotly chart • headline table"]
+
+    USER --> DATA
+    CSV --> DATA
+    API -.-> DATA
+    DATA --> FILTER --> MODEL --> CLASS --> AGG --> UI
+
+    classDef optional fill:#fff5e5,stroke:#cd8500,color:#6e4b00,stroke-dasharray: 6 4;
+    classDef main fill:#ebf8f0,stroke:#20925c,color:#153825;
+    classDef ai fill:#e8f0ff,stroke:#4777c9,color:#142a50;
+    class API optional;
+    class USER,CSV,DATA,FILTER,CLASS,AGG,UI main;
+    class MODEL ai;
