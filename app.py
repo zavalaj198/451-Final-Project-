@@ -61,7 +61,15 @@ industry = st.selectbox(
     sorted(data["industry"].dropna().unique())
 )
 
-filtered = data[data["industry"] == industry]
+date = st.selectbox(
+    "Select Date",
+    sorted(data["date"].unique())
+)
+
+filtered = data[
+    (data["industry"] == industry) &
+    (data["date"] == date)
+]
 
 with st.spinner("Analyzing headlines..."):
     results = [
