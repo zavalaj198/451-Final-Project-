@@ -12,42 +12,44 @@ st.set_page_config(
 st.markdown("""
 <style>
 .stApp {
-    background-color: #0B1220;
-    color: #FFFFFF !important;
+    background-color: #FFFFFF;
+    color: #1F2937;
 }
 
-[data-testid="stHeader"] {
-    background-color: #0B1220;
+[data-testid="stSidebar"] {
+    background-color: #F0FDF4;
 }
 
 [data-testid="stMetric"] {
-    background-color: #172438;
-    padding: 20px;
-    border-radius: 10px;
+    background-color: #DCFCE7;
+    padding: 18px;
+    border: 1px solid #86EFAC;
+    border-radius: 12px;
 }
 
 [data-testid="stMetricLabel"],
 [data-testid="stMetricValue"] {
-    color: #FFFFFF !important;
+    color: #166534;
 }
 
-[data-testid="stWidgetLabel"] {
-    color: #FFFFFF !important;
+h1, h2, h3 {
+    color: #14532D !important;
 }
 
-h1, h2, h3, p, label {
-    color: #FFFFFF !important;
+div.stButton > button {
+    background-color: #16A34A;
+    color: white;
+    border: none;
+    border-radius: 8px;
 }
 
-[data-testid="stAppViewContainer"] {
-    background-color: #0B1220;
-}
-
-[data-testid="stSelectbox"] label {
-    color: #FFFFFF !important;
+.stApp p,
+.stApp label {
+    color: #1F2937;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 st.title("MarketMood AI")
