@@ -7,7 +7,8 @@ def load_model():
     return pipeline(
         "text-classification",
         model="ProsusAI/finbert",
-        top_k=None
+        top_k=None,
+        device=-1
     )
 
 

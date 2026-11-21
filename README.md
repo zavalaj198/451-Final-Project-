@@ -80,6 +80,17 @@ These values describe a **single preliminary run on illustrative examples**, not
 
 You can also switch the industry to **Semiconductors** and choose an available date to test the other sample subset.
 
+An observed team test produced:
+
+| Date | Headlines analyzed | Market mood score | Label |
+| --- | --- | --- | --- |
+| 2026-11-17 | 2 | -0.05 | Negative |
+| 2026-11-18 | 2 | -0.44 | Negative |
+| 2026-11-19 | 2 | -0.36 | Negative |
+| 2026-11-20 | 4 | +0.08 | Positive |
+
+Individual headline classifications are visible in the screenshots at [`docs/screenshots/`](docs/screenshots/). Note: on 2026-11-20, all four headlines were classified neutral, yet the averaged score (+0.08) was still labeled Positive.
+
 ## How the AI and scoring work
 
 `sentiment.py` uses the Transformers `pipeline` with `model="ProsusAI/finbert"` and returns a probability for each of the three classes: `positive`, `negative`, and `neutral`.
