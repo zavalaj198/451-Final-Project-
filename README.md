@@ -135,6 +135,14 @@ The `app.py` function `search_news()` requests up to 20 English-language article
 
 **Data rights:** NewsAPI's free Developer service has restrictions on freshness and deployment; check the provider's current terms before using live news outside local development. The selected FinBERT model weights also have noncommercial licensing restrictions.
 
+## Our technical contribution
+
+FinBERT provides the underlying sentiment classification. The team's own work is:
+- The mood-scoring formula (P(positive) - P(negative)) and the industry/date averaging logic
+- The sample headline dataset (`data/headlines.csv`)
+- The Streamlit dashboard: filtering, layout, styling, and the Plotly chart
+- The optional NewsAPI live-news integration
+
 ## Known limitations and next steps
 
 - The 20 CSV headlines are **illustrative**, not verified articles from real publishers; results cannot establish real-world market sentiment.
